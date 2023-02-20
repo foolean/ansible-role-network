@@ -1,0 +1,20 @@
+
+# CIS: Disable IPv6
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+
+# CIS: Ensure IP forwarding is disabled
+net.ipv6.conf.all.forwarding = 0
+
+# CIS: Ensure source routed packets are not accepted
+net.ipv6.conf.all.accept_source_route = 0
+net.ipv6.conf.default.accept_source_route = 0
+
+# CIS: Ensure ICMP redirects are not accepted
+net.ipv6.conf.all.accept_redirects = 0
+net.ipv6.conf.default.accept_redirects = 0
+
+# CIS: Ensure IPv6 router advertisements are not accepted
+net.ipv6.conf.all.accept_ra = 0
+net.ipv6.conf.default.accept_ra = 0
