@@ -1,0 +1,5 @@
+{{ ansible_managed | comment }}
+
+# CIS: Ensure DCCP is disabled
+install dccp /bin/false
+blacklist dccp

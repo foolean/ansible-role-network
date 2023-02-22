@@ -70,5 +70,44 @@
         - {name: 'net.ipv6.conf.all.accept_ra', value: 0}
         - {name: 'net.ipv6.conf.default.accept_ra', value: 0}
         - {name: 'net.ipv6.route.flush', value: 1}
+
+    - name: Configure sctp module
+      become: true
+      ansible.builtin.template:
+        src: 'etc/modprobe.d/sctp.conf.j2'
+        dest: '/etc/modprobe.d/sctp.conf'
+        owner: 'root'
+        group: 'root'
+        mode: '0644'
+      when:
+         - ansible_os_family in ['Debian', 'RedHat']
+
+    - name: Unload sctp module
+      become: true
+      ansible.builtin.modprobe:
+        name: 'sctp'
+        state: absent
+      when:
+        - ansible_os_family in ['Debian', 'RedHat']
+
+    - name: Configure dccp module
+      become: true
+      ansible.builtin.template:
+        src: 'etc/modprobe.d/dccp.conf.j2'
+        dest: '/etc/modprobe.d/dccp.conf'
+        owner: 'root'
+        group: 'root'
+        mode: '0644'
+      when:
+        - ansible_os_family in ['Debian', 'RedHat']
+
+    - name: Unload dccp module
+      become: true
+      ansible.builtin.modprobe:
+        name: 'dccp'
+        state: absent
+      when:
+        - ansible_os_family in ['Debian', 'RedHat']
+
   tags:
     - 'foolean_role_network'
