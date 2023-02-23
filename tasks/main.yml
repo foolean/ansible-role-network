@@ -3,8 +3,12 @@
 # SPDX short identifier: BSD-3-Clause
 ---
 
-- name: Role foolean_network
+# We put the entire role in a block so we can create
+# a role specific tag, which saves the caller from
+# having to do so in their playbook.
+- name: Role foolean/network
   block:
+
     - name: CIS | Permanently set IPv4 Network Parameters (Host Only)
       become: true
       ansible.builtin.template:
@@ -80,7 +84,7 @@
         group: 'root'
         mode: '0644'
       when:
-         - ansible_os_family in ['Debian', 'RedHat']
+        - ansible_os_family in ['Debian', 'RedHat']
 
     - name: Unload sctp module
       become: true
@@ -109,5 +113,6 @@
       when:
         - ansible_os_family in ['Debian', 'RedHat']
 
+  # Tags to be applied to this role (block)
   tags:
-    - 'foolean_role_network'
+    - 'role_foolean_network'
