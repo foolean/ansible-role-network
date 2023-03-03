@@ -1,0 +1,5 @@
+{{ ansible_managed | comment }}
+
+# CIS: Ensure RDS is disabled
+install rds /bin/false
+blacklist rds

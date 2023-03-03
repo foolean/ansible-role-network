@@ -1,0 +1,5 @@
+{{ ansible_managed | comment }}
+
+# CIS: Ensure TICP is disabled
+install ticp /bin/false
+blacklist ticp

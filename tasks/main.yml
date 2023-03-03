@@ -17,8 +17,6 @@
         owner: 'root'
         group: 'root'
         mode: '0644'
-      when:
-        - ansible_os_family in ['Debian', 'RedHat']
 
     - name: CIS | Permanently set IPv6 Network Parameters (Host Only)
       become: true
@@ -28,8 +26,6 @@
         owner: 'root'
         group: 'root'
         mode: '0644'
-      when:
-        - ansible_os_family in ['Debian', 'RedHat']
 
     - name: CIS | IPv4 Network Parameters (Host Only)
       become: true
@@ -83,16 +79,12 @@
         owner: 'root'
         group: 'root'
         mode: '0644'
-      when:
-        - ansible_os_family in ['Debian', 'RedHat']
 
     - name: Unload sctp module
       become: true
       ansible.builtin.modprobe:
         name: 'sctp'
         state: absent
-      when:
-        - ansible_os_family in ['Debian', 'RedHat']
 
     - name: Configure dccp module
       become: true
@@ -102,16 +94,42 @@
         owner: 'root'
         group: 'root'
         mode: '0644'
-      when:
-        - ansible_os_family in ['Debian', 'RedHat']
 
     - name: Unload dccp module
       become: true
       ansible.builtin.modprobe:
         name: 'dccp'
         state: absent
-      when:
-        - ansible_os_family in ['Debian', 'RedHat']
+
+    - name: Configure rds module
+      become: true
+      ansible.builtin.template:
+        src: 'etc/modprobe.d/rds.conf.j2'
+        dest: '/etc/modprobe.d/rds.conf'
+        owner: 'root'
+        group: 'root'
+        mode: '0644'
+
+    - name: Unload rds module
+      become: true
+      ansible.builtin.modprobe:
+        name: 'rds'
+        state: absent
+
+    - name: Configure ticp module
+      become: true
+      ansible.builtin.template:
+        src: 'etc/modprobe.d/ticp.conf.j2'
+        dest: '/etc/modprobe.d/ticp.conf'
+        owner: 'root'
+        group: 'root'
+        mode: '0644'
+
+    - name: Unload ticp module
+      become: true
+      ansible.builtin.modprobe:
+        name: 'ticp'
+        state: absent
 
   # Tags to be applied to this role (block)
   tags:
